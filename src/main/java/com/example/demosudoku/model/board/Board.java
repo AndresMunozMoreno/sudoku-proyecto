@@ -27,14 +27,12 @@ public class Board implements IBoard {
         copyBoard(solvedBoard, playerBoard);
 
         // 3️⃣ Quitar números para crear el puzzle (dejar pistas)
-        removeCellsForPuzzle(24); // por ejemplo quitar 24 celdas, puedes ajustar yo deje 12 numero por que son los que el profe tiene
+        removeCellsForPuzzle(24); // dejamos 12 números vacíos como ejemplo, puedes ajustar
         System.out.println("=== SOLUCIÓN COMPLETA ===");
         for (var row : solvedBoard) System.out.println(row);
 
         System.out.println("=== PUZZLE JUGADOR ===");
         for (var row : playerBoard) System.out.println(row);
-
-
     }
 
     /**
@@ -107,10 +105,21 @@ public class Board implements IBoard {
      * Quita celdas de playerBoard para crear el puzzle inicial.
      */
     private void removeCellsForPuzzle(int cellsToRemove) {
+        List<int[]> positions = new ArrayList<>();
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                positions.add(new int[]{i, j});
+            }
+        }
+
+        Collections.shuffle(positions, random);
+
         int removed = 0;
-        while (removed < cellsToRemove) {
-            int r = random.nextInt(SIZE);
-            int c = random.nextInt(SIZE);
+        for (int[] pos : positions) {
+            if (removed >= cellsToRemove) break;
+
+            int r = pos[0];
+            int c = pos[1];
             if (playerBoard.get(r).get(c) != 0) {
                 playerBoard.get(r).set(c, 0);
                 removed++;
@@ -149,9 +158,16 @@ public class Board implements IBoard {
         return true;
     }
 
+    /**
+     * Valida si la jugada es correcta comparando con la solución completa.
+     */
     @Override
     public boolean isValid(int row, int col, int candidate) {
-        return isValidInBoard(playerBoard, row, col, candidate);
+        return solvedBoard.get(row).get(col) == candidate;
     }
 }
+
+
+
+
 
