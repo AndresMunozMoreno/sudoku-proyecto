@@ -56,10 +56,40 @@ public class Game extends GameAbstract {
     private void handleNumberField(TextField txt, int row, int col) {
         txt.setOnKeyReleased(event -> {
             String input = txt.getText().trim();
-            if(input.length() > 0){
-                boolean result = board.isValid(row, col, Integer.parseInt(input));
-                System.out.println(result == true ? true : false);
+
+            // Si el campo está vacío → poner 0 en el tablero y limpiar estilo
+            if (input.isEmpty()) {
+                board.getBoard().get(row).set(col, 0);
+                txt.setStyle("");
+                return;
+            }
+
+            try {
+                int number = Integer.parseInt(input);
+
+                if (number >= 1 && number <= 6) {
+                    // ⚡ Validar antes de guardar
+                    boolean valid = board.isValid(row, col, number);
+
+                    // 👇 👉 AQUI va el println 👇
+                    System.out.println("Validación (" + row + "," + col + ") con " + number + ": " + valid);
+
+                    if (valid) {
+                        board.getBoard().get(row).set(col, number);
+                        txt.setStyle("-fx-border-color: green; -fx-border-width: 2;");
+                    } else {
+                        txt.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+                    }
+
+                } else {
+                    txt.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+                }
+
+            } catch (NumberFormatException e) {
+                txt.setStyle("-fx-border-color: red; -fx-border-width: 2;");
             }
         });
     }
+
+
 }
