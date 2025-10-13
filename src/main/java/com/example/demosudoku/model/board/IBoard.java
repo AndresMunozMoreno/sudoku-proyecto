@@ -6,13 +6,6 @@ package com.example.demosudoku.model.board;
  */
 public interface IBoard {
     /**
-     * Fills the board's blocks according to the implementing class's logic.
-     *
-     * @param blockIndex The starting index for the filling process.
-     * @return {@code true} if the filling was successful, {@code false} otherwise.
-     */
-    boolean fillBlocks(int blockIndex);
-    /**
      * Checks if placing a candidate number at a given position is valid.
      *
      * @param row       The row index of the cell.

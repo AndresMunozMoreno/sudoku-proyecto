@@ -27,7 +27,7 @@ public class Board implements IBoard {
         copyBoard(solvedBoard, playerBoard);
 
         // 3️⃣ Quitar números para crear el puzzle (dejar pistas)
-        removeCellsForPuzzle(24); // dejamos 12 números vacíos como ejemplo, puedes ajustar
+        removeCellsForPuzzle(24); // por ejemplo quitar 24 celdas, puedes ajustar yo deje 12 numero por que son los que el profe tiene
         System.out.println("=== SOLUCIÓN COMPLETA ===");
         for (var row : solvedBoard) System.out.println(row);
 
@@ -116,13 +116,21 @@ public class Board implements IBoard {
 
         int removed = 0;
         for (int[] pos : positions) {
-            if (removed >= cellsToRemove) break;
-
             int r = pos[0];
             int c = pos[1];
-            if (playerBoard.get(r).get(c) != 0) {
-                playerBoard.get(r).set(c, 0);
+
+            int backup = playerBoard.get(r).get(c);
+            playerBoard.get(r).set(c, 0);
+
+            // Creamos un tablero temporal basado en la SOLUCIÓN COMPLETA
+            List<List<Integer>> tempBoard = copyBoardForCount(solvedBoard);
+            tempBoard.get(r).set(c, 0); // quitamos la celda temporal
+
+            if (countSolutions(tempBoard) == 1) {
                 removed++;
+                if (removed >= cellsToRemove) break;
+            } else {
+                playerBoard.get(r).set(c, backup); // restauramos porque no es único
             }
         }
     }
@@ -153,20 +161,51 @@ public class Board implements IBoard {
     }
 
     @Override
-    public boolean fillBlocks(int blockIndex) {
-        // ya no se usa, pero lo dejamos para cumplir la interfaz
-        return true;
+    public boolean isValid(int row, int col, int candidate) {
+        return isValidInBoard(playerBoard, row, col, candidate);
     }
 
     /**
-     * Valida si la jugada es correcta comparando con la solución completa.
+     * Cuenta cuántas soluciones tiene un tablero usando backtracking.
      */
-    @Override
-    public boolean isValid(int row, int col, int candidate) {
-        return solvedBoard.get(row).get(col) == candidate;
+    private int countSolutions(List<List<Integer>> board) {
+        return countSolutionsHelper(board, 0, 0);
+    }
+
+    private int countSolutionsHelper(List<List<Integer>> board, int row, int col) {
+        if (row == SIZE) return 1;
+
+        int nextRow = (col == SIZE - 1) ? row + 1 : row;
+        int nextCol = (col == SIZE - 1) ? 0 : col + 1;
+
+        if (board.get(row).get(col) != 0) {
+            return countSolutionsHelper(board, nextRow, nextCol);
+        }
+
+        int solutions = 0;
+        for (int num = 1; num <= SIZE; num++) {
+            if (isValidInBoard(board, row, col, num)) {
+                board.get(row).set(col, num);
+                solutions += countSolutionsHelper(board, nextRow, nextCol);
+                board.get(row).set(col, 0);
+                if (solutions > 1) break; // no necesitamos más de 1
+            }
+        }
+        return solutions;
+    }
+
+    /**
+     * Devuelve una copia profunda de un tablero.
+     */
+    private List<List<Integer>> copyBoardForCount(List<List<Integer>> board) {
+        List<List<Integer>> copy = new ArrayList<>();
+        for (List<Integer> row : board) {
+            List<Integer> newRow = new ArrayList<>(row);
+            copy.add(newRow);
+        }
+        return copy;
     }
 }
-
 
 
 

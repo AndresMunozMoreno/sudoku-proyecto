@@ -76,7 +76,6 @@ public class Game extends GameAbstract {
 
                     if (valid) {
                         board.getBoard().get(row).set(col, number);
-                        txt.setStyle("-fx-border-color: green; -fx-border-width: 2;");
                     } else {
                         txt.setStyle("-fx-border-color: red; -fx-border-width: 2;");
                     }
