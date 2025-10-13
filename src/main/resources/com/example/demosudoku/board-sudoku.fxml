@@ -45,7 +45,7 @@
                   <Font name="Acme Regular" size="36.0" />
                </font>
             </Label>
-            <Button layoutX="48.0" layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="MENU">
+            <Button layoutX="48.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleMenu" style="-fx-background-color: transparent;" text="MENU">
                <font>
                   <Font name="Acme Regular" size="36.0" />
                </font>

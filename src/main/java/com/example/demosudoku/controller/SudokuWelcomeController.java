@@ -42,4 +42,14 @@ public class SudokuWelcomeController {
             new AlertBox().showAlert("Error", "Ingresa un nickname", Alert.AlertType.ERROR);
         }
     }
+    @FXML
+    void handleHelp(ActionEvent event) throws IOException {
+        com.example.demosudoku.view.SudokuHelpStage.getInstance();
+    }
+    @FXML
+    private void handleExit(ActionEvent event) {
+        SudokuWelcomeStage.deleteInstance(); // cierra solo la ventana de ayuda
+    }
 }
+
+

@@ -2,10 +2,12 @@ package com.example.demosudoku.controller;
 
 import com.example.demosudoku.model.game.Game;
 import com.example.demosudoku.model.user.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,4 +49,17 @@ public class SudokuGameController implements Initializable {
     public void setUser(User user) {
         this.user = user;
     }
+    @FXML
+    private void handleMenu(ActionEvent event) {
+        // Cierra la ventana actual del juego
+        com.example.demosudoku.view.SudokuGameStage.deleteInstance();
+
+        // Vuelve a abrir la ventana del menú principal
+        try {
+            com.example.demosudoku.view.SudokuWelcomeStage.getInstance();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

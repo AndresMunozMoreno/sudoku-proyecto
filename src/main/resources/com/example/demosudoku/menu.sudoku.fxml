@@ -29,7 +29,7 @@
             <Font name="Acme Regular" size="30.0" />
          </font>
       </Button>
-      <Button layoutX="292.0" layoutY="510.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: transparent;" text="Ayuda">
+      <Button layoutX="292.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: transparent;" text="Ayuda">
          <font>
             <Font name="Acme Regular" size="30.0" />
          </font>
@@ -39,7 +39,7 @@
             <Image url="@Images/MenuButton.png" />
          </image>
       </ImageView>
-      <Button layoutX="518.0" layoutY="510.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: transparent;" text="Salir">
+      <Button layoutX="518.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: transparent;" text="Salir">
          <font>
             <Font name="Acme Regular" size="30.0" />
          </font>
