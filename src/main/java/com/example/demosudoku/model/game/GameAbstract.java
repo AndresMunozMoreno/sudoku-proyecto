@@ -35,4 +35,7 @@ public class GameAbstract implements IGame {
     @Override
     public void startGame() {
     }
+    public String sudokuBorderStyle() {
+        return "";
+    }
 }

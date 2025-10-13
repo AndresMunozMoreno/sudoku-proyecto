@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
 /**
  * Represents the concrete implementation of the Sudoku game logic.
@@ -25,6 +26,10 @@ public class Game extends GameAbstract {
      */
     @Override
     public void startGame() {
+        int height = 65;
+        int width = 60;
+        String fontFamily = "Acme";
+        int fontSize = 35;
         for (int i = 0; i < board.getBoard().size(); i++) {
             for (int j = 0; j < board.getBoard().get(i).size(); j++) {
                 int number = board.getBoard().get(i).get(j);
@@ -33,6 +38,10 @@ public class Game extends GameAbstract {
                 TextField textField = new TextField();
                 textField.setAlignment(Pos.CENTER);
                 textField.setText(String.valueOf(number));
+                textField.setPrefSize(width, height);
+                textField.setFont(Font.font(fontFamily, fontSize));
+                textField.setStyle("-fx-background-color: transparent;");
+
                 if (number != 0) {
                     textField.setEditable(false);
                 } else{
@@ -60,7 +69,7 @@ public class Game extends GameAbstract {
             // Si el campo está vacío → poner 0 en el tablero y limpiar estilo
             if (input.isEmpty()) {
                 board.getBoard().get(row).set(col, 0);
-                txt.setStyle("");
+                txt.setStyle(("-fx-background-color: transparent;"));
                 return;
             }
 
@@ -77,18 +86,16 @@ public class Game extends GameAbstract {
                     if (valid) {
                         board.getBoard().get(row).set(col, number);
                     } else {
-                        txt.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+                        txt.setStyle("-fx-text-fill: red;  -fx-background-color: transparent;");
                     }
 
                 } else {
-                    txt.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+                    txt.setStyle("-fx-text-fill: red;  -fx-background-color: transparent;");
                 }
 
             } catch (NumberFormatException e) {
-                txt.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+                txt.setStyle("-fx-text-fill: red;  -fx-background-color: transparent;");
             }
         });
     }
-
-
 }

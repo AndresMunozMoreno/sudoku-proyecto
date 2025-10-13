@@ -22,7 +22,7 @@ public class SudokuWelcomeStage extends Stage {
      */
     private SudokuWelcomeStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/demosudoku/sudoku-welcome-view.fxml")
+                getClass().getResource("/com/example/demosudoku/menu.sudoku.fxml")
         );
         Parent root = loader.load();
 
