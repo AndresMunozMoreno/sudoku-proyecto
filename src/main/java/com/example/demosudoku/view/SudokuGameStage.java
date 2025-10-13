@@ -24,7 +24,7 @@ public class SudokuGameStage extends Stage {
      */
     private SudokuGameStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/demosudoku/sudoku-game-view.fxml")
+                getClass().getResource("/com/example/demosudoku/board-sudoku.fxml")
         );
         Parent root = loader.load();
         controller = loader.getController();

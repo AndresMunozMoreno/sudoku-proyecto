@@ -5,38 +5,41 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * This class generates a 6x6 board divided into 2x3 blocks.
- * In each 2x3 block exactly one cell is assigned a random number (from 1 to 6),
- * and all the other cells are left as 0. Additionally, the placed number is not repeated
- * in any row or column across the entire board.
- * <p>
- * The board is represented as a list of lists (ArrayLists) rather than using arrays,
- * and the board is generated using a backtracking algorithm that works block by block.
- * <p>
- * Java JDK 17.
- */
 public class Board implements IBoard {
-    // Board dimensions and block dimensions.
+
     private final int SIZE = 6;
     private final int BLOCK_ROWS = 2;
     private final int BLOCK_COLS = 3;
 
-    // Number of block rows and block columns.
-    private final int TOTAL_BLOCK_ROWS = SIZE / BLOCK_ROWS; // 6/2 = 3
-    private final int TOTAL_BLOCK_COLS = SIZE / BLOCK_COLS; // 6/3 = 2
-    private final int TOTAL_BLOCKS = TOTAL_BLOCK_ROWS * TOTAL_BLOCK_COLS; // 3 * 2 = 6
-
-    // The board represented as a List of Lists (each inner list is a row)
-    private final List<List<Integer>> board;
+    private final List<List<Integer>> playerBoard;   // tablero mostrado al jugador (con huecos)
+    private final List<List<Integer>> solvedBoard;   // tablero resuelto completamente
     private final Random random = new Random();
 
-    /**
-     * Constructor initializes the board with zeros and then fills each block with one number.
-     */
     public Board() {
-        board = new ArrayList<>();
-        // Initialize the board with zeros.
+        // Inicializar estructuras vacías
+        playerBoard = createEmptyBoard();
+        solvedBoard = createEmptyBoard();
+
+        // 1️⃣ Generar solución completa
+        fillSolution(0, 0);
+
+        // 2️⃣ Copiar solución al tablero del jugador
+        copyBoard(solvedBoard, playerBoard);
+
+        // 3️⃣ Quitar números para crear el puzzle (dejar pistas)
+        removeCellsForPuzzle(24); // por ejemplo quitar 24 celdas, puedes ajustar yo deje 12 numero por que son los que el profe tiene
+        System.out.println("=== SOLUCIÓN COMPLETA ===");
+        for (var row : solvedBoard) System.out.println(row);
+
+        System.out.println("=== PUZZLE JUGADOR ===");
+        for (var row : playerBoard) System.out.println(row);
+    }
+
+    /**
+     * Crea un tablero vacío SIZE×SIZE lleno de ceros.
+     */
+    private List<List<Integer>> createEmptyBoard() {
+        List<List<Integer>> board = new ArrayList<>();
         for (int i = 0; i < SIZE; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < SIZE; j++) {
@@ -44,91 +47,166 @@ public class Board implements IBoard {
             }
             board.add(row);
         }
-        // Attempt to fill each block with a valid number.
-        if (!fillBlocks(0)) {
-            System.out.println("Failed to generate the Sudoku board.");
-        }
+        return board;
     }
 
     /**
-     * Recursively fills each 2x3 block with one number.
-     *
-     * @param blockIndex the index of the current block (ranging from 0 to TOTAL_BLOCKS - 1).
-     * @return true if all blocks have been successfully filled; false otherwise.
+     * Genera una solución completa de Sudoku 6×6 usando backtracking.
      */
-    @Override
-    public boolean fillBlocks(int blockIndex) {
-        // If all blocks have been processed, the board is complete.
-        if (blockIndex == TOTAL_BLOCKS) {
-            return true;
+    private boolean fillSolution(int row, int col) {
+        if (row == SIZE) {
+            return true; // se llenó todo
         }
 
-        // Determine the block's position.
-        int blockRow = blockIndex / TOTAL_BLOCK_COLS;     // Row index of the block.
-        int blockCol = blockIndex % TOTAL_BLOCK_COLS;       // Column index of the block.
-        int startRow = blockRow * BLOCK_ROWS;
-        int startCol = blockCol * BLOCK_COLS;
+        int nextRow = (col == SIZE - 1) ? row + 1 : row;
+        int nextCol = (col == SIZE - 1) ? 0 : col + 1;
 
-        // Prepare a list of candidate numbers [1, 2, 3, 4, 5, 6] in random order.
+        // Candidatos en orden aleatorio
         List<Integer> numbers = new ArrayList<>();
-        for (int i = 1; i <= SIZE; i++) {
-            numbers.add(i);
-        }
+        for (int n = 1; n <= SIZE; n++) numbers.add(n);
         Collections.shuffle(numbers, random);
 
-        // Iterate over every cell in the current 2x3 block.
-        for (int i = startRow; i < startRow + BLOCK_ROWS; i++) {
-            for (int j = startCol; j < startCol + BLOCK_COLS; j++) {
-                // Try each candidate number in the randomized order.
-                for (Integer number : numbers) {
-                    // Check if placing 'number' in cell (i, j) does not violate the row and column constraints.
-                    if (isValid(i, j, number)) {
-                        board.get(i).set(j, number);
-                        // Recursively fill the next block.
-                        if (fillBlocks(blockIndex + 1)) {
-                            return true;
-                        }
-                        // Backtracking: reset the cell if subsequent placement fails.
-                        board.get(i).set(j, 0);
-                    }
+        for (int num : numbers) {
+            if (isValidInBoard(solvedBoard, row, col, num)) {
+                solvedBoard.get(row).set(col, num);
+                if (fillSolution(nextRow, nextCol)) {
+                    return true;
                 }
+                solvedBoard.get(row).set(col, 0); // backtrack
             }
         }
-        // If no valid placement was found for this block, return false.
         return false;
     }
 
     /**
-     * Checks whether placing a candidate number at cell (row, col) violates the row or column uniqueness.
-     *
-     * @param row       the row index.
-     * @param col       the column index.
-     * @param candidate the number to place (from 1 to 6).
-     * @return true if the candidate can be placed without conflict; false otherwise.
+     * Valida si se puede colocar un número en la posición dada en un tablero.
      */
-    @Override
-    public boolean isValid(int row, int col, int candidate) {
-        // Check the current row for an existing occurrence of the candidate.
+    private boolean isValidInBoard(List<List<Integer>> board, int row, int col, int num) {
+        // Fila
         for (int j = 0; j < SIZE; j++) {
-            if (board.get(row).get(j) == candidate) {
-                return false;
-            }
+            if (board.get(row).get(j) == num) return false;
         }
-        // Check the current column for an existing occurrence of the candidate.
+        // Columna
         for (int i = 0; i < SIZE; i++) {
-            if (board.get(i).get(col) == candidate) {
-                return false;
+            if (board.get(i).get(col) == num) return false;
+        }
+        // Bloque
+        int startRow = (row / BLOCK_ROWS) * BLOCK_ROWS;
+        int startCol = (col / BLOCK_COLS) * BLOCK_COLS;
+        for (int i = startRow; i < startRow + BLOCK_ROWS; i++) {
+            for (int j = startCol; j < startCol + BLOCK_COLS; j++) {
+                if (board.get(i).get(j) == num) return false;
             }
         }
         return true;
     }
 
     /**
-     * Returns the generated board.
-     *
-     * @return a list of lists representing the board.
+     * Quita celdas de playerBoard para crear el puzzle inicial.
+     */
+    private void removeCellsForPuzzle(int cellsToRemove) {
+        List<int[]> positions = new ArrayList<>();
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                positions.add(new int[]{i, j});
+            }
+        }
+
+        Collections.shuffle(positions, random);
+
+        int removed = 0;
+        for (int[] pos : positions) {
+            int r = pos[0];
+            int c = pos[1];
+
+            int backup = playerBoard.get(r).get(c);
+            playerBoard.get(r).set(c, 0);
+
+            // Creamos un tablero temporal basado en la SOLUCIÓN COMPLETA
+            List<List<Integer>> tempBoard = copyBoardForCount(solvedBoard);
+            tempBoard.get(r).set(c, 0); // quitamos la celda temporal
+
+            if (countSolutions(tempBoard) == 1) {
+                removed++;
+                if (removed >= cellsToRemove) break;
+            } else {
+                playerBoard.get(r).set(c, backup); // restauramos porque no es único
+            }
+        }
+    }
+
+    /**
+     * Copia el contenido de un tablero a otro.
+     */
+    private void copyBoard(List<List<Integer>> from, List<List<Integer>> to) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                to.get(i).set(j, from.get(i).get(j));
+            }
+        }
+    }
+
+    /**
+     * Devuelve el tablero del jugador (con huecos).
      */
     public List<List<Integer>> getBoard() {
-        return board;
+        return playerBoard;
+    }
+
+    /**
+     * Devuelve la solución completa (para pistas o verificación).
+     */
+    public List<List<Integer>> getSolvedBoard() {
+        return solvedBoard;
+    }
+
+    @Override
+    public boolean isValid(int row, int col, int candidate) {
+        return isValidInBoard(playerBoard, row, col, candidate);
+    }
+
+    /**
+     * Cuenta cuántas soluciones tiene un tablero usando backtracking.
+     */
+    private int countSolutions(List<List<Integer>> board) {
+        return countSolutionsHelper(board, 0, 0);
+    }
+
+    private int countSolutionsHelper(List<List<Integer>> board, int row, int col) {
+        if (row == SIZE) return 1;
+
+        int nextRow = (col == SIZE - 1) ? row + 1 : row;
+        int nextCol = (col == SIZE - 1) ? 0 : col + 1;
+
+        if (board.get(row).get(col) != 0) {
+            return countSolutionsHelper(board, nextRow, nextCol);
+        }
+
+        int solutions = 0;
+        for (int num = 1; num <= SIZE; num++) {
+            if (isValidInBoard(board, row, col, num)) {
+                board.get(row).set(col, num);
+                solutions += countSolutionsHelper(board, nextRow, nextCol);
+                board.get(row).set(col, 0);
+                if (solutions > 1) break; // no necesitamos más de 1
+            }
+        }
+        return solutions;
+    }
+
+    /**
+     * Devuelve una copia profunda de un tablero.
+     */
+    private List<List<Integer>> copyBoardForCount(List<List<Integer>> board) {
+        List<List<Integer>> copy = new ArrayList<>();
+        for (List<Integer> row : board) {
+            List<Integer> newRow = new ArrayList<>(row);
+            copy.add(newRow);
+        }
+        return copy;
     }
 }
+
+
+
+

@@ -1,0 +1,16 @@
+.menu {
+    -fx-background-image: url("../Images/MenuBackground.png");
+    -fx-background-size: cover;
+}
+.game {
+    -fx-background-image: url("../Images/GameBackground.png");
+    -fx-background-size: cover;
+}
+.board {
+    -fx-background-image: url("../Images/Board.png");
+    -fx-background-size: cover;
+}
+.help {
+    -fx-background-image: url("../Images/Rules.png");
+    -fx-background-size: cover;
+}
