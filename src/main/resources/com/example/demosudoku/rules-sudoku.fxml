@@ -6,17 +6,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="help" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="help" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demosudoku.controller.SudokuHelpController">
    <children>
       <ImageView fitHeight="91.0" fitWidth="211.0" layoutX="496.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/MenuButton.png" />
          </image>
       </ImageView>
-      <Button layoutX="505.0" layoutY="424.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Jugar Ahora">
+      <Button layoutX="505.0" layoutY="424.0" mnemonicParsing="false" onAction="#handlePlay" style="-fx-background-color: transparent;" text="Jugar Ahora">
          <font>
             <Font name="Acme Regular" size="28.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="502.0" layoutY="496.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/MenuButton.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="524.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleMenu" style="-fx-background-color: transparent;" text="MENU">
+         <font>
+            <Font name="Acme Regular" size="36.0" />
          </font>
       </Button>
    </children>

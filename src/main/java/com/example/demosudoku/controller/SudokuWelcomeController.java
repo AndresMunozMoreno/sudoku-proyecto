@@ -45,10 +45,11 @@ public class SudokuWelcomeController {
     @FXML
     void handleHelp(ActionEvent event) throws IOException {
         com.example.demosudoku.view.SudokuHelpStage.getInstance();
+        com.example.demosudoku.view.SudokuWelcomeStage.deleteInstance(); // 👈 cerrar menú
     }
     @FXML
     private void handleExit(ActionEvent event) {
-        SudokuWelcomeStage.deleteInstance(); // cierra solo la ventana de ayuda
+        System.exit(0); // cierra solo la ventana de ayuda
     }
 }
 
