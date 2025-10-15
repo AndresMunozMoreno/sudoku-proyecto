@@ -1,5 +1,4 @@
 package com.example.demosudoku.model.game;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
