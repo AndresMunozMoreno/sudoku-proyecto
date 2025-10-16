@@ -11,24 +11,49 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Represents the concrete implementation of the Sudoku game logic.
- * This class is responsible for setting up the game board UI and handling user input.
+ * Concrete implementation of the Sudoku game logic and user interface.
+ * <p>
+ * This class is responsible for:
+ * <ul>
+ *   <li>Setting up the game board UI with TextFields</li>
+ *   <li>Handling user input and validation</li>
+ *   <li>Providing visual feedback for valid/invalid moves</li>
+ *   <li>Managing the hint system</li>
+ *   <li>Detecting win conditions</li>
+ * </ul>
+ * </p>
+ *
+ * @author Juan Manuel Muñoz y Andres Felipe Muñoz
+ * @version 1.0
+ * @since 2025-10-15
+ * @see GameAbstract
  */
+
 public class Game extends GameAbstract {
 
     /**
      * Constructs a new Game instance.
      *
-     * @param boardGridpane The GridPane from the view where the Sudoku board will be rendered.
+     * @param boardGridpane The GridPane from the view where the Sudoku board will be rendered
      */
     public Game(GridPane boardGridpane) {
         super(boardGridpane);
     }
 
     /**
-     * Starts the game by generating a board, creating UI components (TextFields) for each cell,
-     * and adding them to the GridPane. It also sets properties for each cell, such as editability.
+     * Starts the game by generating the board and creating UI components.
+     * <p>
+     * This method:
+     * <ol>
+     *   <li>Creates a TextField for each cell in the 6x6 grid</li>
+     *   <li>Sets styling and font properties</li>
+     *   <li>Marks pre-filled cells as non-editable</li>
+     *   <li>Attaches input validation handlers</li>
+     *   <li>Adds all components to the GridPane</li>
+     * </ol>
+     * </p>
      */
+
     @Override
     public void startGame() {
         int height = 65;
@@ -60,9 +85,21 @@ public class Game extends GameAbstract {
     }
 
     /**
-     * Attaches a key released event handler to a TextField cell. When the key is released,
-     * it validates the number entered by the user against the Sudoku rules.
+     * Attaches event handlers to a TextField cell for input validation.
+     * <p>
+     * Implements two key features:
+     * <ul>
+     *   <li><b>TextFormatter:</b> Restricts input to single digits 1-6 or empty</li>
+     *   <li><b>KeyReleased handler:</b> Validates moves and provides visual feedback</li>
+     * </ul>
+     * Valid moves are displayed in black, invalid moves in red.
+     * </p>
+     *
+     * @param txt The TextField to attach handlers to
+     * @param row The row index of this cell (0-5)
+     * @param col The column index of this cell (0-5)
      */
+
     private void handleNumberField(TextField txt, int row, int col) {
         // ✅ Restringir: solo 1 dígito 1-6 o vacío
         txt.setTextFormatter(new javafx.scene.control.TextFormatter<String>(change -> {
@@ -105,9 +142,17 @@ public class Game extends GameAbstract {
     }
 
     /**
-     * Verifica si el jugador ha ganado comparando el tablero del jugador
-     * con la solución. Si coinciden, muestra la ventana de victoria.
+     * Checks if the player has successfully completed the puzzle.
+     * <p>
+     * The win condition is satisfied when:
+     * <ol>
+     *   <li>All cells are filled (no zeros remain)</li>
+     *   <li>The player board exactly matches the solution board</li>
+     * </ol>
+     * If both conditions are met, the victory screen is displayed.
+     * </p>
      */
+
     private void checkWinCondition() {
         var playerBoard = board.getBoard();
         var solvedBoard = board.getSolvedBoard();
@@ -135,8 +180,13 @@ public class Game extends GameAbstract {
     }
 
     /**
-     * Muestra la ventana de victoria y cierra la ventana del juego.
+     * Displays the victory screen and closes the game window.
+     * <p>
+     * Called automatically when the player completes the puzzle correctly.
+     * Transitions from the game view to the win view.
+     * </p>
      */
+
     private void showWinStage() {
         try {
             com.example.demosudoku.view.SudokuGameStage.deleteInstance();
@@ -148,9 +198,19 @@ public class Game extends GameAbstract {
     }
 
     /**
-     * Da una pista: elige aleatoriamente una celda vacía o incorrecta
-     * y coloca el número correcto de la solución. No aplica estilos de fondo.
+     * Provides a hint to the player by revealing one correct number.
+     * <p>
+     * The hint system:
+     * <ol>
+     *   <li>Identifies all empty or incorrect cells</li>
+     *   <li>Randomly selects one cell from the candidates</li>
+     *   <li>Fills it with the correct number from the solution</li>
+     *   <li>Displays the hint in a distinct color (#A3B3CF)</li>
+     *   <li>Checks if the puzzle is now complete</li>
+     * </ol>
+     * </p>
      */
+
     public void provideHelp() {
         var playerBoard = board.getBoard();
         var solvedBoard = board.getSolvedBoard();
@@ -189,9 +249,17 @@ public class Game extends GameAbstract {
     }
 
     /**
-     * Aplica la pista a la celda indicada, solo cambiando el número
-     * y coloreando únicamente el texto de amarillo.
+     * Applies a hint to a specific cell by updating both model and view.
+     * <p>
+     * Updates the player board data structure and finds the corresponding
+     * TextField in the GridPane to display the hint visually.
+     * </p>
+     *
+     * @param row          The row index of the cell receiving the hint (0-5)
+     * @param col          The column index of the cell receiving the hint (0-5)
+     * @param correctValue The correct number from the solution (1-6)
      */
+
     private void applyHintToCell(int row, int col, int correctValue) {
         // Actualizar el modelo
         board.getBoard().get(row).set(col, correctValue);
