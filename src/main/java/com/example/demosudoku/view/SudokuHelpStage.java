@@ -46,7 +46,7 @@ public class SudokuHelpStage extends Stage {
         setScene(scene);
         initStyle(StageStyle.UNDECORATED);
         setResizable(false);
-        initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana principal hasta cerrar ayuda
+        initModality(Modality.APPLICATION_MODAL);
         getIcons().add(
                 new Image(String.valueOf(getClass().getResource("/com/example/demosudoku/favicon.png")))
         );

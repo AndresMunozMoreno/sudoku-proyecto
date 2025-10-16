@@ -157,25 +157,24 @@ public class Game extends GameAbstract {
         var playerBoard = board.getBoard();
         var solvedBoard = board.getSolvedBoard();
 
-        // Verificar que todas las celdas estén llenas
+
         for (int row = 0; row < playerBoard.size(); row++) {
             for (int col = 0; col < playerBoard.get(row).size(); col++) {
                 if (playerBoard.get(row).get(col) == 0) {
-                    return; // Aún hay celdas vacías
+                    return;
                 }
             }
         }
 
-        // Verificar que el tablero coincida con la solución
         for (int row = 0; row < playerBoard.size(); row++) {
             for (int col = 0; col < playerBoard.get(row).size(); col++) {
                 if (playerBoard.get(row).get(col) != solvedBoard.get(row).get(col)) {
-                    return; // Hay errores en el tablero
+                    return;
                 }
             }
         }
 
-        // ✅ El jugador ganó - mostrar ventana de victoria
+
         showWinStage();
     }
 
@@ -216,7 +215,7 @@ public class Game extends GameAbstract {
         var solvedBoard = board.getSolvedBoard();
         List<int[]> hintCandidates = new ArrayList<>();
 
-        // 1️⃣ Reunir celdas vacías o incorrectas
+
         for (int row = 0; row < playerBoard.size(); row++) {
             for (int col = 0; col < playerBoard.get(row).size(); col++) {
                 int current = playerBoard.get(row).get(col);
@@ -227,24 +226,24 @@ public class Game extends GameAbstract {
             }
         }
 
-        // 2️⃣ Si no hay candidatos → salir
+
         if (hintCandidates.isEmpty()) {
             System.out.println("✅ No hay más celdas vacías ni incorrectas para sugerir.");
             return;
         }
 
-        // 3️⃣ Elegir una celda aleatoria
+
         Random random = new Random();
         int[] chosen = hintCandidates.get(random.nextInt(hintCandidates.size()));
         int row = chosen[0];
         int col = chosen[1];
         int correctValue = solvedBoard.get(row).get(col);
 
-        // 4️⃣ Aplicar la pista
+
         applyHintToCell(row, col, correctValue);
         System.out.println("💡 Pista en (" + row + "," + col + "): " + correctValue);
 
-        // 5️⃣ Verificar si con esta pista se completó el juego
+
         checkWinCondition();
     }
 
@@ -261,10 +260,10 @@ public class Game extends GameAbstract {
      */
 
     private void applyHintToCell(int row, int col, int correctValue) {
-        // Actualizar el modelo
+
         board.getBoard().get(row).set(col, correctValue);
 
-        // Actualizar el TextField correspondiente
+
         boardGridpane.getChildren().forEach(node -> {
             Integer r = GridPane.getRowIndex(node);
             Integer c = GridPane.getColumnIndex(node);
