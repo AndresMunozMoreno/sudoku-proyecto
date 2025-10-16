@@ -51,7 +51,7 @@ public class SudokuHelpController {
     @FXML
     void handlePlay(ActionEvent event) {
         try {
-            // ✅ Fíjate en el getInstance()
+
             if (!SessionManager.getInstance().hasUser()) {
                 new com.example.demosudoku.utils.AlertBox().showAlert(
                         "Error",
@@ -61,8 +61,8 @@ public class SudokuHelpController {
                 return;
             }
 
-            // Si ya hay usuario → abrir el juego
-            com.example.demosudoku.view.SudokuHelpStage.deleteInstance(); // o RulesStage si aplica
+
+            com.example.demosudoku.view.SudokuHelpStage.deleteInstance();
             com.example.demosudoku.view.SudokuGameStage.getInstance();
 
         } catch (IOException e) {
