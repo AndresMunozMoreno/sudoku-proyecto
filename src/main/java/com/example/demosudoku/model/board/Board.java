@@ -159,8 +159,8 @@ public class Board implements IBoard {
     public boolean isValid(int row, int col, int candidate) {
         return isValidInBoard(playerBoard, row, col, candidate);
     }
-}
 
+}
 
 
 

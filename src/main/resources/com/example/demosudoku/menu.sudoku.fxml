@@ -7,39 +7,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="menu" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demosudoku.controller.SudokuWelcomeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="menu" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demosudoku.controller.SudokuWelcomeController">
    <children>
       <ImageView fitHeight="152.0" fitWidth="215.0" layoutX="251.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/TextField.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="77.0" fitWidth="182.0" layoutX="268.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Images/MenuButton.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="77.0" fitWidth="182.0" layoutX="52.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Images/MenuButton.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="83.0" layoutY="513.0" mnemonicParsing="false" onAction="#handlePlay" prefHeight="55.0" prefWidth="120.0" style="-fx-background-color: transparent;" text="Jugar">
+      <Button layoutX="57.0" layoutY="507.0" mnemonicParsing="false" onAction="#handlePlay" prefHeight="71.0" prefWidth="181.0" style="-fx-background-color: transparent;" styleClass="menuButton" stylesheets="@CSS/Styles.css" text="Jugar">
          <font>
             <Font name="Acme Regular" size="30.0" />
          </font>
       </Button>
-      <Button layoutX="282.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="65.0" prefWidth="137.0" style="-fx-background-color: transparent;" text="Ayuda">
+      <Button layoutX="276.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="71.0" prefWidth="181.0" style="-fx-background-color: transparent;" styleClass="menuButton" stylesheets="@CSS/Styles.css" text="Ayuda">
          <font>
             <Font name="Acme Regular" size="30.0" />
          </font>
       </Button>
-      <ImageView fitHeight="77.0" fitWidth="182.0" layoutX="493.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Images/MenuButton.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="518.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="59.0" prefWidth="120.0" style="-fx-background-color: transparent;" text="Salir">
+      <Button layoutX="486.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="71.0" prefWidth="181.0" style="-fx-background-color: transparent;" styleClass="menuButton" stylesheets="@CSS/Styles.css" text="Salir">
          <font>
             <Font name="Acme Regular" size="30.0" />
          </font>
