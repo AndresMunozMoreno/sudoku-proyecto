@@ -1,7 +1,9 @@
 package com.example.demosudoku.controller;
 
 import com.example.demosudoku.model.game.Game;
+import com.example.demosudoku.model.user.SessionManager;
 import com.example.demosudoku.model.user.User;
+import com.example.demosudoku.view.SudokuWelcomeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,6 +62,10 @@ public class SudokuGameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void handleHint(ActionEvent event) {
+        game.provideHelp();
     }
 
 }

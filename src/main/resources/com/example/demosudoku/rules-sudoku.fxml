@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="help" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demosudoku.controller.SudokuHelpController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="help" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demosudoku.controller.SudokuHelpController">
    <children>
       <ImageView fitHeight="91.0" fitWidth="211.0" layoutX="496.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
          <image>

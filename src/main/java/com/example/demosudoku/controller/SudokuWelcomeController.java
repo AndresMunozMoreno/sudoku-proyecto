@@ -36,6 +36,7 @@ public class SudokuWelcomeController implements Initializable {
 
     @FXML
     void handleHelp(ActionEvent event) throws IOException {
+        SudokuWelcomeStage.deleteInstance();
         com.example.demosudoku.view.SudokuHelpStage.getInstance();
     }
 
