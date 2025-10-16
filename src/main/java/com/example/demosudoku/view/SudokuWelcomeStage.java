@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class SudokuWelcomeStage extends Stage {
 
         Scene scene = new Scene(root);
         setScene(scene);
-        setTitle("Sudoku");
+        initStyle(StageStyle.UNDECORATED);
         setResizable(false);
         getIcons().add(
                 new Image(String.valueOf(getClass().getResource("/com/example/demosudoku/favicon.png")))

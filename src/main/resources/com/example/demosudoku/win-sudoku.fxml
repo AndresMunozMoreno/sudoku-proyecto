@@ -24,9 +24,9 @@
             <Font name="Acme Regular" size="24.0" />
          </font>
       </Button>
-      <Label fx:id="winnerMessage" layoutX="212.0" layoutY="404.0" text="Felicidades ">
+      <Label fx:id="winnerMessage" layoutX="245.0" layoutY="397.0" text="¡Felicitaciones!">
          <font>
-            <Font name="Acme Regular" size="24.0" />
+            <Font name="Acme Regular" size="36.0" />
          </font>
       </Label>
    </children>

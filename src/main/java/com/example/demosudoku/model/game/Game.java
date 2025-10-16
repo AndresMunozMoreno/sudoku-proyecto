@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -88,6 +89,9 @@ public class Game extends GameAbstract {
                     if (valid) {
                         board.getBoard().get(row).set(col, number);
                         txt.setStyle("-fx-background-color: transparent; -fx-text-fill: black;");
+
+                        // ✅ Verificar si el sudoku está completo y correcto
+                        checkWinCondition();
                     } else {
                         txt.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
                     }
@@ -98,6 +102,49 @@ public class Game extends GameAbstract {
                 txt.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
             }
         });
+    }
+
+    /**
+     * Verifica si el jugador ha ganado comparando el tablero del jugador
+     * con la solución. Si coinciden, muestra la ventana de victoria.
+     */
+    private void checkWinCondition() {
+        var playerBoard = board.getBoard();
+        var solvedBoard = board.getSolvedBoard();
+
+        // Verificar que todas las celdas estén llenas
+        for (int row = 0; row < playerBoard.size(); row++) {
+            for (int col = 0; col < playerBoard.get(row).size(); col++) {
+                if (playerBoard.get(row).get(col) == 0) {
+                    return; // Aún hay celdas vacías
+                }
+            }
+        }
+
+        // Verificar que el tablero coincida con la solución
+        for (int row = 0; row < playerBoard.size(); row++) {
+            for (int col = 0; col < playerBoard.get(row).size(); col++) {
+                if (playerBoard.get(row).get(col) != solvedBoard.get(row).get(col)) {
+                    return; // Hay errores en el tablero
+                }
+            }
+        }
+
+        // ✅ El jugador ganó - mostrar ventana de victoria
+        showWinStage();
+    }
+
+    /**
+     * Muestra la ventana de victoria y cierra la ventana del juego.
+     */
+    private void showWinStage() {
+        try {
+            com.example.demosudoku.view.SudokuGameStage.deleteInstance();
+            com.example.demosudoku.view.SudokuWinStage.getInstance();
+            System.out.println("🎉 ¡Felicidades! Has completado el Sudoku correctamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -136,6 +183,9 @@ public class Game extends GameAbstract {
         // 4️⃣ Aplicar la pista
         applyHintToCell(row, col, correctValue);
         System.out.println("💡 Pista en (" + row + "," + col + "): " + correctValue);
+
+        // 5️⃣ Verificar si con esta pista se completó el juego
+        checkWinCondition();
     }
 
     /**
