@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * Concrete implementation of the Sudoku game logic and user interface.
- * <p>
+ *
  * This class is responsible for:
  * <ul>
  *   <li>Setting up the game board UI with TextFields</li>
@@ -21,7 +21,7 @@ import java.util.Random;
  *   <li>Managing the hint system</li>
  *   <li>Detecting win conditions</li>
  * </ul>
- * </p>
+ *
  *
  * @author Juan Manuel Muñoz y Andres Felipe Muñoz
  * @version 1.0
@@ -42,7 +42,7 @@ public class Game extends GameAbstract {
 
     /**
      * Starts the game by generating the board and creating UI components.
-     * <p>
+     *
      * This method:
      * <ol>
      *   <li>Creates a TextField for each cell in the 6x6 grid</li>
@@ -51,7 +51,7 @@ public class Game extends GameAbstract {
      *   <li>Attaches input validation handlers</li>
      *   <li>Adds all components to the GridPane</li>
      * </ol>
-     * </p>
+     *
      */
 
     @Override
@@ -199,7 +199,7 @@ public class Game extends GameAbstract {
 
     /**
      * Provides a hint to the player by revealing one correct number.
-     * <p>
+     *
      * The hint system:
      * <ol>
      *   <li>Identifies all empty or incorrect cells</li>
@@ -208,7 +208,7 @@ public class Game extends GameAbstract {
      *   <li>Displays the hint in a distinct color (#A3B3CF)</li>
      *   <li>Checks if the puzzle is now complete</li>
      * </ol>
-     * </p>
+     *
      */
 
     public void provideHelp() {

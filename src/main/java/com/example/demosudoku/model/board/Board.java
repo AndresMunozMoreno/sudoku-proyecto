@@ -7,18 +7,18 @@ import java.util.Random;
 
 /**
  * Implementation of a 6x6 Sudoku board with 2x3 blocks.
- * <p>
+ *
  * This class generates a complete random solution and creates a playable puzzle
  * by revealing exactly 2 numbers per 2x3 block. The board uses backtracking
  * algorithm to ensure a valid and unique solution exists.
- * </p>
- * <p>
+ *
+ *
  * The board maintains two separate grids:
  * <ul>
  *   <li><b>playerBoard:</b> The current state of the player's puzzle with some cells revealed</li>
  *   <li><b>solvedBoard:</b> The complete solution used for validation and hints</li>
  * </ul>
- * </p>
+ *
  *
  * @author Juan Manuel Muñoz y Andres Felipe Muñoz
  * @version 1.0
@@ -61,14 +61,14 @@ public class Board implements IBoard {
 
     /**
      * Constructs a new Board instance and initializes both the player board and solution.
-     * <p>
+     *
      * The constructor performs the following operations:
      * <ol>
      *   <li>Creates empty 6x6 grids for both boards</li>
      *   <li>Generates a complete valid solution using backtracking</li>
      *   <li>Reveals exactly 2 numbers per 2x3 block for the player board</li>
      * </ol>
-     * </p>
+     *
      */
 
     public Board() {
