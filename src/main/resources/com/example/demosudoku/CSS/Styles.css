@@ -14,3 +14,30 @@
     -fx-background-image: url("../Images/Rules.png");
     -fx-background-size: cover;
 }
+.win{
+    -fx-background-image: url("../Images/WinBackground.png");
+    -fx-background-size: cover;
+}
+.menuButton{
+    -fx-background-image: url("../Images/MenuButton.png");
+    -fx-background-size: cover;
+}
+.menuButton:hover {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, black, 10, 0.8, 0, 0);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-font-family: Acme;
+}
+.hintButton{
+    -fx-background-image: url("../Images/HintButton.png");
+    -fx-background-size: cover;
+}
+.hintButton:hover {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, black, 10, 0.8, 0, 0);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}

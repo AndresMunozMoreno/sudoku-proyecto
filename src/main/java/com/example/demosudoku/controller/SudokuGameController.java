@@ -53,10 +53,10 @@ public class SudokuGameController implements Initializable {
     }
     @FXML
     private void handleMenu(ActionEvent event) {
-        // Cierra la ventana actual del juego
+
         com.example.demosudoku.view.SudokuGameStage.deleteInstance();
 
-        // Vuelve a abrir la ventana del menú principal
+
         try {
             com.example.demosudoku.view.SudokuWelcomeStage.getInstance();
         } catch (IOException e) {

@@ -34,22 +34,12 @@
    <top>
       <Pane prefHeight="130.0" prefWidth="682.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="26.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/MenuButton.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="48.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleMenu" style="-fx-background-color: transparent;" text="MENU">
+            <Button layoutX="38.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="81.0" prefWidth="202.0" style="-fx-background-color: transparent;" styleClass="menuButton" stylesheets="@CSS/Styles.css" text="MENU">
                <font>
                   <Font name="Acme Regular" size="36.0" />
                </font>
             </Button>
-            <ImageView fitHeight="116.0" fitWidth="121.0" layoutX="565.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/HintButton.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="hintButton" layoutX="574.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleHint" prefHeight="95.0" prefWidth="95.0" style="-fx-background-color: transparent;" />
+            <Button fx:id="hintButton" layoutX="561.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleHint" prefHeight="105.0" prefWidth="108.0" style="-fx-background-color: transparent;" styleClass="hintButton" stylesheets="@CSS/Styles.css" />
          </children>
       </Pane>
    </top>
