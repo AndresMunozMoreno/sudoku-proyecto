@@ -86,4 +86,15 @@ public class SessionManager {
     public void clearSession() {
         currentUser = null;
     }
+    /**
+     * Checks if there is a current user with a valid nickname.
+     *
+     * @return true if a user is logged in and has a non-empty nickname, false otherwise
+     */
+    public boolean hasUser() {
+        return currentUser != null &&
+                currentUser.getNickname() != null &&
+                !currentUser.getNickname().isBlank();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.demosudoku.controller;
 
 import com.example.demosudoku.view.SudokuHelpStage;
+import com.example.demosudoku.model.user.SessionManager;
 import com.example.demosudoku.view.SudokuWelcomeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,8 +49,24 @@ public class SudokuHelpController {
      * @throws IOException if the game stage FXML file cannot be loaded
      */
     @FXML
-    void handlePlay(ActionEvent event) throws IOException {
-        SudokuHelpStage.deleteInstance();
-        com.example.demosudoku.view.SudokuGameStage.getInstance();
+    void handlePlay(ActionEvent event) {
+        try {
+            // ✅ Fíjate en el getInstance()
+            if (!SessionManager.getInstance().hasUser()) {
+                new com.example.demosudoku.utils.AlertBox().showAlert(
+                        "Error",
+                        "Debes ingresar un nickname antes de jugar",
+                        javafx.scene.control.Alert.AlertType.ERROR
+                );
+                return;
+            }
+
+            // Si ya hay usuario → abrir el juego
+            com.example.demosudoku.view.SudokuHelpStage.deleteInstance(); // o RulesStage si aplica
+            com.example.demosudoku.view.SudokuGameStage.getInstance();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
