@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="help" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demosudoku.controller.SudokuHelpController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="700.0" styleClass="help" stylesheets="@CSS/Styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demosudoku.controller.SudokuHelpController">
    <children>
       <Button layoutX="493.0" layoutY="424.0" mnemonicParsing="false" onAction="#handlePlay" prefHeight="78.0" prefWidth="193.0" style="-fx-background-color: transparent;" styleClass="menuButton" stylesheets="@CSS/Styles.css" text="Jugar">
          <font>

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class SudokuHelpStage extends Stage {
 
         Scene scene = new Scene(root);
         setScene(scene);
-        setTitle("Ayuda");
+        initStyle(StageStyle.UNDECORATED);
         setResizable(false);
         initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana principal hasta cerrar ayuda
         getIcons().add(

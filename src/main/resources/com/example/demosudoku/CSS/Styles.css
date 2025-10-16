@@ -35,7 +35,7 @@
     -fx-background-size: cover;
 }
 .hintButton:hover {
-    -fx-font-size: 20px;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, black, 10, 0.8, 0, 0);
     -fx-scale-x: 1.1;

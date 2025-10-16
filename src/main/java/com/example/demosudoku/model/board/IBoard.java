@@ -14,4 +14,5 @@ public interface IBoard {
      * @return {@code true} if the move is valid, {@code false} otherwise.
      */
     boolean isValid(int row, int col, int candidate);
+
 }

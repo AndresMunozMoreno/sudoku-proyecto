@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public class SudokuWinStage extends Stage {
 
         Scene scene = new Scene(root);
         setScene(scene);
-        setTitle("Ganaste");
+        initStyle(StageStyle.UNDECORATED);
         setResizable(false);
         initModality(Modality.APPLICATION_MODAL);
         getIcons().add(

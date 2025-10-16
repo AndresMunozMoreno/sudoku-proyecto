@@ -9,4 +9,5 @@ public interface IGame {
      * Initializes and starts the game logic.
      */
     void startGame();
+
 }
