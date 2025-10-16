@@ -2,6 +2,7 @@ module com.example.demosudoku {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires java.desktop;
 
 
     opens com.example.demosudoku to javafx.fxml;

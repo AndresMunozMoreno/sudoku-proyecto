@@ -1,24 +1,27 @@
 package com.example.demosudoku.model.board;
-
 /**
- * Defines the contract for a Sudoku board. Implementations must provide
- * methods for filling blocks and validating number placements.
+ * Interface defining the contract for a Sudoku board implementation.
+ * <p>
+ * Any class implementing this interface must provide functionality for
+ * validating number placements according to Sudoku rules.
+ * </p>
+ *
+ * @author Juan Manuel Muñoz y Andres Felipe Muñoz
+ * @version 1.0
+ * @since 2025-10-15
  */
 public interface IBoard {
     /**
-     * Fills the board's blocks according to the implementing class's logic.
-     *
-     * @param blockIndex The starting index for the filling process.
-     * @return {@code true} if the filling was successful, {@code false} otherwise.
-     */
-    boolean fillBlocks(int blockIndex);
-    /**
      * Checks if placing a candidate number at a given position is valid.
+     * <p>
+     * A placement is valid if the number doesn't violate Sudoku rules:
+     * it must not already exist in the same row, column, or block.
+     * </p>
      *
-     * @param row       The row index of the cell.
-     * @param col       The column index of the cell.
-     * @param candidate The number to validate.
-     * @return {@code true} if the move is valid, {@code false} otherwise.
+     * @param row       The row index of the cell (0-5)
+     * @param col       The column index of the cell (0-5)
+     * @param candidate The number to validate (1-6)
+     * @return {@code true} if the placement is valid, {@code false} otherwise
      */
     boolean isValid(int row, int col, int candidate);
 }
