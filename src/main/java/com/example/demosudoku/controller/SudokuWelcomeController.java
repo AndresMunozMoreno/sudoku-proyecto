@@ -1,56 +1,59 @@
 package com.example.demosudoku.controller;
 
+import com.example.demosudoku.model.user.SessionManager;
 import com.example.demosudoku.model.user.User;
 import com.example.demosudoku.utils.AlertBox;
 import com.example.demosudoku.view.SudokuGameStage;
 import com.example.demosudoku.view.SudokuWelcomeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-/**
- * Controller for the welcome screen (sudoku-welcome-view.fxml).
- * It handles user interaction for starting a new game.
- */
-public class SudokuWelcomeController {
+public class SudokuWelcomeController implements Initializable {
 
-    /**
-     * The TextField where the user enters their nickname.
-     */
     @FXML
     private TextField nicknameTxt;
 
-    /**
-     * Handles the "Play" button action. It validates the user's nickname,
-     * creates a new User, passes it to the game controller, and transitions
-     * from the welcome stage to the game stage.
-     *
-     * @param event The action event triggered by clicking the button.
-     * @throws IOException If the SudokuGameStage FXML file cannot be loaded.
-     */
     @FXML
     void handlePlay(ActionEvent event) throws IOException {
         String nickname = nicknameTxt.getText().trim();
 
         if (!nickname.equals("")) {
-            SudokuGameStage.getInstance().getController().setUser(new User(nickname));
+            User user = new User(nickname);
+            SessionManager.getInstance().setCurrentUser(user); // ✅ guarda globalmente
+            SudokuGameStage.getInstance().getController().setUser(user);
             SudokuWelcomeStage.deleteInstance();
         } else {
             new AlertBox().showAlert("Error", "Ingresa un nickname", Alert.AlertType.ERROR);
         }
     }
+
     @FXML
     void handleHelp(ActionEvent event) throws IOException {
         com.example.demosudoku.view.SudokuHelpStage.getInstance();
-        com.example.demosudoku.view.SudokuWelcomeStage.deleteInstance(); // 👈 cerrar menú
     }
+
     @FXML
     private void handleExit(ActionEvent event) {
-        System.exit(0); // cierra solo la ventana de ayuda
+        SudokuWelcomeStage.deleteInstance();
+        SessionManager.getInstance().clearSession(); // opcional si quieres cerrar sesión
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // ✅ Si ya hay un usuario, muestra su nickname automáticamente
+        User user = SessionManager.getInstance().getCurrentUser();
+        if (user != null) {
+            nicknameTxt.setText(user.getNickname());
+        }
     }
 }
+
 
 

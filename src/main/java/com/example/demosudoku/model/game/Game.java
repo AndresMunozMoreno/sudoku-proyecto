@@ -62,13 +62,23 @@ public class Game extends GameAbstract {
      * @param col The column index of the cell in the board.
      */
     private void handleNumberField(TextField txt, int row, int col) {
+        // ✅ 1) Restringir lo que se puede escribir: solo 1 dígito entre 1 y 6 o vacío
+        txt.setTextFormatter(new javafx.scene.control.TextFormatter<String>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[1-6]?")) { // acepta vacío o un solo dígito 1-6
+                return change;
+            }
+            return null; // cualquier otra cosa se ignora
+        }));
+
+        // ✅ 2) Validar cuando el usuario termina de escribir
         txt.setOnKeyReleased(event -> {
             String input = txt.getText().trim();
 
-            // Si el campo está vacío → poner 0 en el tablero y limpiar estilo
             if (input.isEmpty()) {
+                // se borró el contenido
                 board.getBoard().get(row).set(col, 0);
-                txt.setStyle(("-fx-background-color: transparent;"));
+                txt.setStyle("-fx-background-color: transparent; -fx-text-fill: black;");
                 return;
             }
 
@@ -76,24 +86,19 @@ public class Game extends GameAbstract {
                 int number = Integer.parseInt(input);
 
                 if (number >= 1 && number <= 6) {
-                    // ⚡ Validar antes de guardar
                     boolean valid = board.isValid(row, col, number);
-
-                    // 👇 👉 AQUI va el println 👇
-                    System.out.println("Validación (" + row + "," + col + ") con " + number + ": " + valid);
-
                     if (valid) {
                         board.getBoard().get(row).set(col, number);
+                        txt.setStyle("-fx-background-color: transparent; -fx-text-fill: black;");
                     } else {
-                        txt.setStyle("-fx-text-fill: red;  -fx-background-color: transparent;");
+                        txt.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
                     }
-
                 } else {
-                    txt.setStyle("-fx-text-fill: red;  -fx-background-color: transparent;");
+                    txt.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
                 }
 
             } catch (NumberFormatException e) {
-                txt.setStyle("-fx-text-fill: red;  -fx-background-color: transparent;");
+                txt.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
             }
         });
     }
