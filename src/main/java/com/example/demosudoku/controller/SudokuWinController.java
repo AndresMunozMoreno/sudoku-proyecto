@@ -1,10 +1,13 @@
 package com.example.demosudoku.controller;
 
+import com.example.demosudoku.model.user.SessionManager;
+import com.example.demosudoku.model.user.User;
 import com.example.demosudoku.view.SudokuGameStage;
 import com.example.demosudoku.view.SudokuWelcomeStage;
 import com.example.demosudoku.view.SudokuWinStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import java.io.IOException;
 
 /**
@@ -19,6 +22,19 @@ import java.io.IOException;
  * @since 2025-10-15
  */
 public class SudokuWinController {
+
+    @FXML
+    private Label winnerMessage;
+
+    @FXML
+    public void initialize() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            winnerMessage.setText("¡Felicidades, " + currentUser.getNickname() + "!");
+        } else {
+            winnerMessage.setText("¡Felicidades!");
+        }
+    }
 
     /**
      * Handles the menu button action event.
