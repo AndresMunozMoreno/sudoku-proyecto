@@ -8,19 +8,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.io.IOException;
 
-public class SudokuHelpController {
-
-    // 🟡 Botón "MENÚ"
+public class SudokuWinController {
     @FXML
     void handleMenu(ActionEvent event) throws IOException {
-        SudokuHelpStage.deleteInstance();      // cerrar ventana de reglas
-        SudokuWinStage.getInstance();      // volver al menú principal
+        SudokuWinStage.deleteInstance();
+        SudokuWelcomeStage.getInstance();
     }
-
-    // 🟢 Botón "JUGAR AHORA"
     @FXML
     void handlePlay(ActionEvent event) throws IOException {
-        SudokuHelpStage.deleteInstance();      // cerrar ventana de reglas
-        SudokuGameStage.getInstance();         // abrir el tablero de juego
+        SudokuWinStage.deleteInstance();
+        SudokuGameStage.getInstance();
     }
 }
